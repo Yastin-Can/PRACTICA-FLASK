@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <h1>Bienvenido/a, {{ session['first_name'] }} {{ session['last_name']}}</h1>
+            <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit" class="btn-logout">Cerrar sesión</button>
+            </form>
+        </div>
+
+        <h2>Tus Amigos</h2>
+        <ul class="friend-list">
+            {% for friend in friends %}
+                <li>
+                    <div>
+                        {{ friend.first_name }} {{ friend.last_name }}
+                        <a href="{{ url_for('ver_perfil', user_id=friend.id) }}" class="btn-view-profile">Ver Perfil</a>
+                    </div>
+                    <form action="{{ url_for('remove_friend', friend_id=friend.id) }}" method="post">
+                        <button type="submit" class="btn-remove">Eliminar amigo</button>
+                    </form>
+                </li>
+            {% else %}
+                <li>No tienes amigos todavía.</li>
+            {% endfor %}
+        </ul>
+        
+        <h2>Otros Usuarios</h2>
+        <ul class="user-list">
+            {% for user in other_users %}
+                <li>
+                    <div>
+                        {{ user.first_name }} {{ user.last_name }}
+                        <a href="{{ url_for('ver_perfil', user_id=user.id) }}" class="btn-view-profile">Ver Perfil</a>
+                    </div>
+                    <form action="{{ url_for('add_friend', friend_id=user.id) }}" method="post">
+                        <button type="submit" class="btn-add">Añadir amigo</button>
+                    </form>
+                </li>
+            {% else %}
+                <li>No hay más usuarios para agregar.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

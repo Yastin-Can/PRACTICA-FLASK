@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verPerfil.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('friends') }}" class="btn-back">Volver</a>
+        
+        <div class="profile-card">
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p>Email: {{ user.email }}</p>
+
+            {% if is_friend %}
+                <form action="{{ url_for('remove_friend', friend_id=user.id) }}" method="post">
+                    <button type="submit" class="btn-remove">Eliminar amigo</button>
+                </form>
+            {% else %}
+                <form action="{{ url_for('add_friend', friend_id=user.id) }}" method="post">
+                    <button type="submit" class="btn-add">Añadir amigo</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

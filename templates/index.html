@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bienvenido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}" />
+</head>
+<body>
+    <div class="contenedor">
+        <h1 class="titulo-principal">Bienvenido a la Twitter 2.0</h1>
+        <div class="fila">
+            <div class="columna columna-registro">
+                {% if register_errors %}
+                <ul class="lista-errores">
+                    {% for e in register_errors %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <h2 class="titulo-seccion">Registro</h2>
+                <form action="{{ url_for('register') }}" method="POST" class="formulario">
+                    <div class="campo">
+                        <label for="registro-nombre" class="etiqueta">Nombre:</label>
+                        <input type="text" class="entrada" id="registro-nombre" name="first_name" required />
+                    </div>
+                    <div class="campo">
+                        <label for="registro-apellido" class="etiqueta">Apellido:</label>
+                        <input type="text" class="entrada" id="registro-apellido" name="last_name" required />
+                    </div>
+                    <div class="campo">
+                        <label for="registro-email" class="etiqueta">Email:</label>
+                        <input type="email" class="entrada" id="registro-email" name="email" required />
+                    </div>
+                    <div class="campo">
+                        <label for="registro-contraseña" class="etiqueta">Contraseña:</label>
+                        <input type="password" class="entrada" id="registro-contraseña" name="password" required />
+                    </div>
+                    <div class="campo">
+                        <label for="registro-confirmar-contraseña" class="etiqueta">Confirmar Contraseña:</label>
+                        <input type="password" class="entrada" id="registro-confirmar-contraseña" name="password2" required />
+                    </div>
+                    <button type="submit" name="register" class="boton boton-exito">Registrarse</button>
+                </form>
+            </div>
+            <div class="columna columna-inicio-sesion">
+                {% if login_errors %}
+                <ul class="lista-errores">
+                    {% for e in login_errors %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <h2 class="titulo-seccion">Iniciar Sesión</h2>
+                <form action="{{ url_for('login') }}" method="POST" class="formulario">
+                    <div class="campo">
+                        <label for="inicio-email" class="etiqueta">Email:</label>
+                        <input type="email" class="entrada" id="inicio-email" name="email" required />
+                    </div>
+                    <div class="campo">
+                        <label for="inicio-contraseña" class="etiqueta">Contraseña:</label>
+                        <input type="password" class="entrada" id="inicio-contraseña" name="password" required />
+                    </div>
+                    <button type="submit" name="login" class="boton boton-primario">Iniciar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
